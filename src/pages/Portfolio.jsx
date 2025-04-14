@@ -12,7 +12,7 @@ const Portfolio = () => {
     const fetchPortfolioItems = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:5000/api/portfolio?type=${filterType}&search=${searchTerm}&sortBy=${sortBy}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/portfolio?type=${filterType}&search=${searchTerm}&sortBy=${sortBy}`);
         if (!response.ok) {
           throw new Error('Failed to fetch portfolio items');
         }
@@ -93,7 +93,7 @@ const Portfolio = () => {
             <div key={item._id} className="bg-white rounded-lg shadow-lg overflow-hidden">
               {item.image && (
                 <img
-                  src={`http://localhost:5000${item.image}`}
+                  src={`${import.meta.env.VITE_API_URL}${item.image}`}
                   alt={item.title}
                   className="w-full h-48 object-cover"
                 />

@@ -46,9 +46,9 @@ const AdminDashboard = () => {
     try {
       setLoading(true);
       const [portfolioRes, achievementsRes, messagesRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/portfolio', axiosConfig),
-        axios.get('http://localhost:5000/api/achievements', axiosConfig),
-        axios.get('http://localhost:5000/api/contact', axiosConfig)
+        axios.get(`${import.meta.env.VITE_API_URL}/api/portfolio`, axiosConfig),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/achievements`, axiosConfig),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/contact`, axiosConfig)
       ]);
 
       setPortfolioItems(portfolioRes.data);
@@ -79,7 +79,7 @@ const AdminDashboard = () => {
         formData.append(key, portfolioForm[key]);
       });
 
-      await axios.post('http://localhost:5000/api/portfolio', formData, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/portfolio`, formData, {
         ...axiosConfig,
         headers: {
           ...axiosConfig.headers,
@@ -105,7 +105,7 @@ const AdminDashboard = () => {
   const handlePortfolioDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this item?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/portfolio/${id}`, axiosConfig);
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/portfolio/${id}`, axiosConfig);
         fetchData();
       } catch (error) {
         console.error('Error deleting portfolio item:', error);
@@ -143,7 +143,7 @@ const AdminDashboard = () => {
         return;
       }
 
-      await axios.post('http://localhost:5000/api/achievements', {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/achievements`, {
         year: achievementForm.year,
         items: filteredItems
       }, axiosConfig);
@@ -162,7 +162,7 @@ const AdminDashboard = () => {
   const handleAchievementDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this achievement?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/achievements/${id}`, axiosConfig);
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/achievements/${id}`, axiosConfig);
         fetchData();
       } catch (error) {
         console.error('Error deleting achievement:', error);
@@ -175,7 +175,7 @@ const AdminDashboard = () => {
   const handleMessageDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this message?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/contact/${id}`, axiosConfig);
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/contact/${id}`, axiosConfig);
         fetchData();
       } catch (error) {
         console.error('Error deleting message:', error);
