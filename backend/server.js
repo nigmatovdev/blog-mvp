@@ -8,7 +8,16 @@ const multer = require('multer');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: [
+        'http://otabek.com',
+        'http://www.otabek.com',
+        'http://185.232.205.21',
+        'http://localhost:5000'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
