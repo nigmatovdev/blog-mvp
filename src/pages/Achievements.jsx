@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Container from '../components/Container';
 
 const Achievements = () => {
   const [achievements, setAchievements] = useState([]);
@@ -27,26 +28,22 @@ const Achievements = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 py-12">
-        <div className="container mx-auto px-6">
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-          </div>
+      <Container>
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
         </div>
-      </div>
+      </Container>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 py-12">
-        <div className="container mx-auto px-6">
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-            <strong className="font-bold">Error!</strong>
-            <span className="block sm:inline"> {error}</span>
-          </div>
+      <Container>
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong className="font-bold">Error!</strong>
+          <span className="block sm:inline"> {error}</span>
         </div>
-      </div>
+      </Container>
     );
   }
 
@@ -63,19 +60,19 @@ const Achievements = () => {
   const sortedYears = Object.keys(achievementsByYear).sort((a, b) => b - a);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="container mx-auto px-6 max-w-4xl">
-        <h1 className="text-4xl font-bold text-gray-800 mb-12">Achievements</h1>
+    <Container>
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-4xl font-bold text-black mb-12">Achievements</h1>
         
         <div className="space-y-12">
           {sortedYears.map((year) => (
             <div key={year} className="space-y-6">
-              <h2 className="text-2xl font-bold text-gray-800">{year}</h2>
+              <h2 className="text-2xl font-bold text-black">{year}</h2>
               <div className="prose prose-lg max-w-none">
                 {achievementsByYear[year].map((item, index) => (
                   <div
                     key={index}
-                    className="text-gray-700 mb-4"
+                    className="text-black/60 mb-4"
                     dangerouslySetInnerHTML={{ __html: item }}
                   />
                 ))}
@@ -84,7 +81,7 @@ const Achievements = () => {
           ))}
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

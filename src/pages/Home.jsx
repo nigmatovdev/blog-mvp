@@ -1,46 +1,49 @@
+import { Link } from 'react-router-dom';
+import Container from '../components/Container';
+
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 mb-8 md:mb-0">
+    <Container className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-12">
+          <div className="md:w-1/2">
             <img
               src="/avatar.jpeg"
               alt="Otabek Mahkamov"
-              className="rounded-lg shadow-xl w-full max-w-md mx-auto"
+              className="rounded-lg shadow-lg w-full max-w-md mx-auto"
             />
           </div>
-          <div className="md:w-1/2 md:pl-8">
-            <h1 className="text-4xl font-bold text-gray-800 mb-6">
+          <div className="md:w-1/2 space-y-6">
+            <h1 className="text-4xl font-bold text-black">
               Welcome to My Portfolio
             </h1>
-            <p className="text-lg text-gray-600 mb-4">
+            <p className="text-lg text-black/60">
               I am Otabek Mahkamov, a passionate professional dedicated to excellence in my field.
               With years of experience and numerous achievements, I strive to make a meaningful impact
               through my work.
             </p>
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="text-lg text-black/60">
               Explore my portfolio to see my latest projects, check out my achievements,
               and feel free to reach out if you'd like to collaborate or learn more about my work.
             </p>
-            <div className="flex space-x-4">
-              <a
-                href="/portfolio"
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300"
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                to="/portfolio"
+                className="bg-black text-white px-6 py-3 rounded-lg hover:bg-black/90 transition duration-300 text-center"
               >
                 View Portfolio
-              </a>
-              <a
-                href="/contact"
-                className="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition duration-300"
+              </Link>
+              <Link
+                to="/contact"
+                className="bg-white text-black border border-black/10 px-6 py-3 rounded-lg hover:bg-black/5 transition duration-300 text-center"
               >
                 Contact Me
-              </a>
+              </Link>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

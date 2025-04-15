@@ -1,30 +1,47 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const navLinks = [
+    { path: '/', label: 'Home' },
+    { path: '/portfolio', label: 'Portfolio' },
+    { path: '/achievements', label: 'Achievements' },
+    { path: '/contact', label: 'Contact' },
+  ];
 
   return (
-    <header className="bg-white shadow-md">
-      <nav className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="text-2xl font-bold text-gray-800">
+    <header className="bg-white border-b border-black/10 sticky top-0 z-50">
+      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <Link to="/" className="text-xl font-bold text-black">
             Otabek Mahkamov
           </Link>
           
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8">
-            <Link to="/" className="text-gray-600 hover:text-gray-900">Home</Link>
-            <Link to="/portfolio" className="text-gray-600 hover:text-gray-900">Portfolio</Link>
-            <Link to="/achievements" className="text-gray-600 hover:text-gray-900">Achievements</Link>
-            <Link to="/contact" className="text-gray-600 hover:text-gray-900">Contact</Link>
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`text-sm font-medium transition-colors duration-200 ${
+                  location.pathname === link.path
+                    ? 'text-black border-b-2 border-black'
+                    : 'text-black/60 hover:text-black'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 p-2 rounded-lg"
+              className="text-black/60 hover:text-black focus:outline-none focus:ring-2 focus:ring-black/10 p-2 rounded-lg"
               aria-label="Toggle menu"
             >
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,36 +58,22 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4">
+          <div className="md:hidden py-4">
             <div className="flex flex-col space-y-4">
-              <Link 
-                to="/" 
-                className="text-gray-600 hover:text-gray-900 px-2 py-1 rounded-lg hover:bg-gray-100"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link 
-                to="/portfolio" 
-                className="text-gray-600 hover:text-gray-900 px-2 py-1 rounded-lg hover:bg-gray-100"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Portfolio
-              </Link>
-              <Link 
-                to="/achievements" 
-                className="text-gray-600 hover:text-gray-900 px-2 py-1 rounded-lg hover:bg-gray-100"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Achievements
-              </Link>
-              <Link 
-                to="/contact" 
-                className="text-gray-600 hover:text-gray-900 px-2 py-1 rounded-lg hover:bg-gray-100"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contact
-              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`text-sm font-medium transition-colors duration-200 ${
+                    location.pathname === link.path
+                      ? 'text-black'
+                      : 'text-black/60 hover:text-black'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
           </div>
         )}
