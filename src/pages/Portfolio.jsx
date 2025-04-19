@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Container from '../components/Container';
+import SEO from '../components/SEO';
 
 const Portfolio = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -76,85 +77,92 @@ const Portfolio = () => {
   }
 
   return (
-    <Container>
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-black mb-8">Portfolio</h1>
-        
-        {/* Filters and Search */}
-        <div className="mb-8 flex flex-col md:flex-row gap-4">
-          <div className="relative flex-grow">
-            <input
-              type="text"
-              placeholder="Search portfolio..."
-              className="w-full px-4 py-2 border border-black/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            {isSearching && (
-              <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-black"></div>
-              </div>
-            )}
-          </div>
-          <select
-            className="px-4 py-2 border border-black/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10"
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
-          >
-            <option value="all">All Types</option>
-            <option value="web">Web</option>
-            <option value="mobile">Mobile</option>
-            <option value="design">Design</option>
-          </select>
-          <select
-            className="px-4 py-2 border border-black/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10"
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-          >
-            <option value="createdAt">Sort by Date</option>
-            <option value="title">Sort by Title</option>
-          </select>
-        </div>
-
-        {/* Portfolio Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredItems.map((item) => (
-            <div 
-              key={item._id} 
-              className="bg-white rounded-lg shadow-lg overflow-hidden border border-black/10 transition-opacity duration-200"
-            >
-              {item.image && (
-                <img
-                  src={`${import.meta.env.VITE_API_URL}${item.image}`}
-                  alt={item.title}
-                  className="w-full h-48 object-cover"
-                  loading="lazy"
-                />
+    <>
+      <SEO
+        title="Portfolio"
+        description="Explore my portfolio of projects and work. View my latest web development, design, and creative projects."
+        pathname="/portfolio"
+      />
+      <Container>
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-4xl font-bold text-black mb-8">Portfolio</h1>
+          
+          {/* Filters and Search */}
+          <div className="mb-8 flex flex-col md:flex-row gap-4">
+            <div className="relative flex-grow">
+              <input
+                type="text"
+                placeholder="Search portfolio..."
+                className="w-full px-4 py-2 border border-black/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              {isSearching && (
+                <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-black"></div>
+                </div>
               )}
-              <div className="p-6">
-                <h2 className="text-xl font-semibold text-black mb-2">{item.title}</h2>
-                <p className="text-black/60 mb-4">{item.description}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-black/40">
-                    {new Date(item.createdAt).toLocaleDateString()}
-                  </span>
-                  {item.link && (
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-black hover:text-black/60"
-                    >
-                      View Project →
-                    </a>
-                  )}
+            </div>
+            <select
+              className="px-4 py-2 border border-black/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10"
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+            >
+              <option value="all">All Types</option>
+              <option value="web">Web</option>
+              <option value="mobile">Mobile</option>
+              <option value="design">Design</option>
+            </select>
+            <select
+              className="px-4 py-2 border border-black/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/10"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <option value="createdAt">Sort by Date</option>
+              <option value="title">Sort by Title</option>
+            </select>
+          </div>
+
+          {/* Portfolio Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredItems.map((item) => (
+              <div 
+                key={item._id} 
+                className="bg-white rounded-lg shadow-lg overflow-hidden border border-black/10 transition-opacity duration-200"
+              >
+                {item.image && (
+                  <img
+                    src={`${import.meta.env.VITE_API_URL}${item.image}`}
+                    alt={item.title}
+                    className="w-full h-48 object-cover"
+                    loading="lazy"
+                  />
+                )}
+                <div className="p-6">
+                  <h2 className="text-xl font-semibold text-black mb-2">{item.title}</h2>
+                  <p className="text-black/60 mb-4">{item.description}</p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-black/40">
+                      {new Date(item.createdAt).toLocaleDateString()}
+                    </span>
+                    {item.link && (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-black hover:text-black/60"
+                      >
+                        View Project →
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 };
 
